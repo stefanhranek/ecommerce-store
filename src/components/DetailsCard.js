@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 
-export default class BottomNav extends Component {
+export default class DetailsCard extends Component {
     render() {
         return (
             <div>
-                <h1>BOTTOM NAV</h1>
+                <h1>PRODUCT DETAILS CARD</h1>
             </div>
         )
     }
