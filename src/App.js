@@ -5,7 +5,7 @@ import Shop from './pages/Shop';
 import ProductDetails from './pages/ProductDetails';
 import Cart from './pages/Cart';
 import Contact from './pages/Contact';
-
+ 
 function App() {
   return (
     <div className="App">
