@@ -4,7 +4,6 @@ import LineItem from './LineItem';
 class Cart extends Component {
   constructor(props) {
     super(props);
-
     this.openCheckout = this.openCheckout.bind(this);
   }
 
@@ -13,7 +12,9 @@ class Cart extends Component {
   }
 
   render() {
-    let line_items = this.props.checkout.lineItems.map((line_item) => {
+    let line_items;
+    if (this.props.checkout) {
+    line_items = this.props.checkout.lineItems.map((line_item) => {
       return (
         <LineItem
           updateQuantityInCart={this.props.updateQuantityInCart}
@@ -23,6 +24,9 @@ class Cart extends Component {
         />
       );
     });
+    } else {
+      line_items = <p>Loading...</p>
+    }
 
     return (
       <div className={`Cart ${this.props.isCartOpen ? 'Cart--open' : ''}`}>
@@ -40,21 +44,27 @@ class Cart extends Component {
         <footer className="Cart__footer">
           <div className="Cart-info clearfix">
             <div className="Cart-info__total Cart-info__small">Subtotal</div>
-            <div className="Cart-info__pricing">
+            { this.props.checkout && <div className="Cart-info__pricing">
               <span className="pricing">$ {this.props.checkout.subtotalPrice}</span>
-            </div>
+            </div> }
           </div>
           <div className="Cart-info clearfix">
             <div className="Cart-info__total Cart-info__small">Taxes</div>
-            <div className="Cart-info__pricing">
+            { this.props.checkout && <div className="Cart-info__pricing">
               <span className="pricing">$ {this.props.checkout.totalTax}</span>
-            </div>
+            </div> }
           </div>
           <div className="Cart-info clearfix">
             <div className="Cart-info__total Cart-info__small">Total</div>
-            <div className="Cart-info__pricing">
+            { this.props.checkout && <div className="Cart-info__pricing">
               <span className="pricing">$ {this.props.checkout.totalPrice}</span>
-            </div>
+            </div> }
+          </div>
+          <div className="Cart-info clearfix">
+            <div className="Cart-info__total Cart-info__small">Donation Amount</div>
+            { this.props.checkout && <div className="Cart-info__pricing">
+              <span className="pricing">~$ {(this.props.checkout.totalPrice * .35).toFixed(2)}</span>
+            </div> }
           </div>
           <button className="Cart__checkout button" onClick={this.openCheckout}>Checkout</button>
         </footer>
